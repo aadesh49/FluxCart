@@ -2,18 +2,22 @@ package com.aadesh.FluxCart.controller;
 
 import com.aadesh.FluxCart.io.CategoryRequest;
 import com.aadesh.FluxCart.io.CategoryResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.aadesh.FluxCart.service.CategoryService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/categories")
+@RequiredArgsConstructor
 public class CategoryController {
 
+    private final CategoryService categoryService;
+
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public CategoryResponse addCategory(@RequestBody CategoryRequest category){
-        
+        return categoryService.add(category);
     }
 
 }
