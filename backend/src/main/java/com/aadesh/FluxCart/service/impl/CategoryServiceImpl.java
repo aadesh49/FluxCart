@@ -8,7 +8,10 @@ import com.aadesh.FluxCart.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,43 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryEntity newCategory = convertToEntity(request);
         newCategory = categoryRepository.save(newCategory);
         return convertToResponse(newCategory);
+    }
+
+    @Override
+    public List<CategoryResponse> fetch() {
+        return categoryRepository.findAll()
+                        .stream()
+                        .map(this::convertToResponse)
+                        .collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(String categoryId) {
+         CategoryEntity category = categoryRepository.findByCategoryId(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category does not exist"));
+
+         categoryRepository.deleteById(category.getId());
+    }
+
+    @Override
+    public CategoryResponse update(String categoryId, Map<String, Object> updates) {
+        CategoryEntity category = categoryRepository.findByCategoryId(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category does not exist"));
+
+        updates.forEach((key, value) -> {
+            switch (key){
+                case "name": category.setName(value.toString());
+                break;
+                case "description": category.setDescription(value.toString());
+                break;
+                case "url": category.setUrl(value.toString());
+                break;
+                case "bgColor": category.setBgColor(value.toString());
+                break;
+            }
+        });
+        CategoryEntity updated = categoryRepository.save(category);
+        return convertToResponse(updated);
     }
 
     private CategoryResponse convertToResponse(CategoryEntity newCategory) {
@@ -41,6 +81,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .name(request.getName())
                 .description(request.getDescription())
                 .bgColor(request.getBgColor())
+                .url(request.getUrl())
                 .build();
     }
 }
