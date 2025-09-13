@@ -15,11 +15,11 @@ function App() {
     <>
       <Menubar />
       <Routes>
-          <Route path='/dashboard' element={Dashboard} />
-          <Route path='/explore' element={Explore} />
-          <Route path='/items' element={ManageItems} />
-          <Route path='/categories' element={ManageCategories} />
-          <Route path='/users' element={ManageUsers} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/explore' element={<Explore />} />
+        <Route path='/items' element={<ManageItems />} />
+        <Route path='/categories' element={<ManageCategories />} />
+        <Route path='/users' element={<ManageUsers />} />
       </Routes>
     </>
   )
