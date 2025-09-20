@@ -2,7 +2,7 @@
     padding: 20px;
     gap: 20px;
     display: flex;
-    height: cal(100vh - 5rem);
+    height: calc(100vh);
     box-sizing: border-box;
     background-color: #2c3335;
 }
@@ -30,7 +30,7 @@
 }
 
 .second-row{
-    flex:0.7;
+    flex: 0.7;
     box-sizing: border-box;
 }
 

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import Menubar from './components/Menubar/Menubar'
 import { Route, Routes } from 'react-router-dom'
@@ -9,7 +8,6 @@ import ManageCategories from './pages/ManageCategories/manageCategories'
 import ManageUsers from './pages/ManageUsers/manageUsers'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
